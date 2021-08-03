@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import django_heroku
 from pathlib import Path
 import environ
 
@@ -157,3 +158,5 @@ USE_TZ = True
 STATIC_ROOT = f'{BASE_DIR}/socialBackend'
 
 STATIC_URL = '/static/'
+
+django_heroku.settings(locals())

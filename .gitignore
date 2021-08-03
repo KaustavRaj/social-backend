@@ -1,0 +1,4 @@
+__pycache*
+db.sqlite3
+.ignore
+.env

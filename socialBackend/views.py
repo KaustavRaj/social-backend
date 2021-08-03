@@ -35,7 +35,6 @@ def home(request):
   response['Location'] = redirectUrl
   return response
 
-@login_required
 def logout(request):
   try:
     auth_logout(request)

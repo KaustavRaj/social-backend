@@ -22,6 +22,11 @@ env = environ.Env(
 
 environ.Env.read_env()
 
+print("ENV values : ", env.ENVIRON)
+
+# Debug mode
+DEBUG = env('DEBUG')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 

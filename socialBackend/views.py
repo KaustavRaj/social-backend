@@ -27,6 +27,8 @@ def home(request):
     "provider" : social.provider
   }
 
+  print("appResponse : ", appResponse)
+
   redirectUrl = f'{env("EXPO_REDIRECT_URL")}/?{urlencode(appResponse)}'
 
   response = HttpResponse("", status=302)

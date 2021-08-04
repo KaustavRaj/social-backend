@@ -96,6 +96,11 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [
 # Google Auth API credentials
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('GOOGLE_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('GOOGLE_SECRET')
+SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {'prompt': 'select_account'}
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+'https://www.googleapis.com/auth/userinfo.email',
+'https://www.googleapis.com/auth/userinfo.profile'
+]
 
 # Social authentication modules
 AUTHENTICATION_BACKENDS = [
@@ -104,6 +109,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend'
 ]
 
+NO_DEFAULT_PROTECTED_USER_FIELDS = True
 
 WSGI_APPLICATION = 'socialBackend.wsgi.application'
 

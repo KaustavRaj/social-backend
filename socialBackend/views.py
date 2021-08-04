@@ -10,19 +10,21 @@ env = environ.Env()
 @login_required
 def home(request):
   user = request.user
-  auth_provider = request.session.get("social_auth_last_login_backend")
+  connected_providers = list(user.social_auth.values_list('provider', 'modified'))
+  recently_used_provider = sorted(connected_providers, key=lambda x: x[1], reverse=True)[0][0]
 
-  print("auth_provider : ", auth_provider)
+  print("connected_providers : ", connected_providers)
+  print("recently used provider : ", recently_used_provider)
 
-  social = user.social_auth.get(provider=auth_provider)
+  social = user.social_auth.get(provider=recently_used_provider)
 
   appResponse = {
-    "name" : user.username,
+    "name" : f'{user.first_name} {user.last_name}',
     "email": user.email,
     "access_token": social.extra_data['access_token'],
     "expires" : social.extra_data['expires'],
     "auth_time": social.extra_data['auth_time'],
-    "provider" : auth_provider
+    "provider" : recently_used_provider
   }
 
   print("appResponse : ", appResponse)

@@ -10,13 +10,13 @@ env = environ.Env()
 @login_required
 def home(request):
   user = request.user
-  connected_providers = list(user.social_auth.values_list('provider', 'modified'))
-  recently_used_provider = sorted(connected_providers, key=lambda x: x[1], reverse=True)[0][0]
+  connected_providers = list(user.social_auth.values_list('provider', 'modified', 'id'))
+  (recently_used_provider, _, provider_id) = sorted(connected_providers, key=lambda x: x[1], reverse=True)[0]
 
   print("connected_providers : ", connected_providers)
   print("recently used provider : ", recently_used_provider)
 
-  social = user.social_auth.get(provider=recently_used_provider)
+  social = user.social_auth.get(id=provider_id)
 
   appResponse = {
     "name" : f'{user.first_name} {user.last_name}',

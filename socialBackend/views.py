@@ -10,13 +10,11 @@ env = environ.Env()
 @login_required
 def home(request):
   user = request.user
-  social = None
+  auth_provider = request.session.get("social_auth_last_login_backend")
 
-  existing_providers = ["google-oauth2", "facebook"]
+  print("auth_provider : ", auth_provider)
 
-  for each_provider in existing_providers:
-    if user.social_auth.filter(provider=each_provider):
-      social = user.social_auth.get(provider=each_provider)
+  social = user.social_auth.get(provider=auth_provider)
 
   appResponse = {
     "name" : user.username,
@@ -24,7 +22,7 @@ def home(request):
     "access_token": social.extra_data['access_token'],
     "expires" : social.extra_data['expires'],
     "auth_time": social.extra_data['auth_time'],
-    "provider" : social.provider
+    "provider" : auth_provider
   }
 
   print("appResponse : ", appResponse)
